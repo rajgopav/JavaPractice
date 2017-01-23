@@ -210,30 +210,30 @@ public class BinaryInsertion {
         head = tree.insertNode(-6, head);
         head = tree.insertNode(10, head);
         
-//        System.out.println("Level Order Traversal of the Tree is: "); tree.levelOrderTraversal(head);
-//        System.out.println();
-//        System.out.println("Iterative Post Order Traversal of the Tree is: "); tree.itertaivePostOrderTraversal(head);
-//        List<Node> result = new ArrayList<>();
-//        boolean bool = tree.printPath(head, 22, result);
-//        if(bool){
-//            result.forEach(node -> System.out.print(node.getData() + " "));
-//            System.out.println();
-//        }else{
-//            System.out.println("No path for sum: " + 22); 
-//        }
-//        
-//        int size = tree.size(head);
-//        System.out.println("Size of the Binary Search Tree is: " + size);
-//        
-//        int height = tree.height(head);
-//        System.out.println("Height of the Binary Search Tree is: " + height);
-//        
-//        boolean bool1 = tree.isBST(head, Integer.MIN_VALUE, Integer.MAX_VALUE);
-//        if(bool1){
-//        	System.out.println("Binary Search Tree");
-//        }else{
-//            System.out.println("Not a Binay Search Tree"); 
-//        }
+        System.out.println("Level Order Traversal of the Tree is: "); tree.levelOrderTraversal(head);
+        System.out.println();
+        System.out.println("Iterative Post Order Traversal of the Tree is: "); tree.itertaivePostOrderTraversal(head);
+        List<Node> result = new ArrayList<>();
+        boolean bool = tree.printPath(head, 22, result);
+        if(bool){
+            result.forEach(node -> System.out.print(node.getData() + " "));
+            System.out.println();
+        }else{
+            System.out.println("No path for sum: " + 22); 
+        }
+        
+        int size = tree.size(head);
+        System.out.println("Size of the Binary Search Tree is: " + size);
+        
+        int height = tree.height(head);
+        System.out.println("Height of the Binary Search Tree is: " + height);
+        
+        boolean bool1 = tree.isBST(head, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        if(bool1){
+        	System.out.println("Binary Search Tree");
+        }else{
+            System.out.println("Not a Binay Search Tree"); 
+        }
         tree.inorder(head);
         //System.out.println("");
         //tree.convertBSTToGreaterSum(head);
