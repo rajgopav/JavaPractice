@@ -1,9 +1,9 @@
 
 public class QuickSort {
-	private int arr[];
+	private int arrA[];
 	
 	public QuickSort(int a[]) {
-		this.arr = a;
+		this.arrA = a;
 	}
 	
 	public static void main(String[] args) {
@@ -17,13 +17,34 @@ public class QuickSort {
 		i.display();
 	}
 
-	private void quickS(int i, int j) {
-		// TODO Auto-generated method stub
+	private void quickS(int low, int high) {
+		int mid = (low + high) / 2;
+		int left = low;
+		int right = high;
+		int pivot = arrA[mid]; 
+		while (left <= right) {
+			while (arrA[left] < pivot)
+				left++;
+			while (arrA[right] > pivot)
+				right--;
+			
+			if (left <= right) {
+				int temp = arrA[left];
+				arrA[left] = arrA[right];
+				arrA[right] = temp;
+				left++;
+				right--;
+			}
+		}
 		
+		if (low < right)
+			quickS(low, right);
+		if (left < high)
+			quickS(left, high);
 	}
  
 	private void display() {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i < arrA.length; i++) 
+			System.out.print(arrA[i] + " ");
 	}
 }
