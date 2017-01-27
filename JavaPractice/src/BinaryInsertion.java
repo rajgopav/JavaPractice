@@ -1,12 +1,19 @@
 import java.util.*;
 
 class Node {
-	private int data;
-	private Node left;
-	private Node right;
+	int data;
+	Node left;
+	Node right;
 
-	public static Node newNode(int data) {
-		Node n = new Node();
+	public Node (int data) {
+		Node n = new Node(data);
+		n.data = data;
+		n.left = null;
+		n.right = null;
+	}
+	
+	public static Node newNode1(int data) {
+		Node n = new Node(data);
 		n.data = data;
 		n.left = null;
 		n.right = null;
@@ -41,7 +48,7 @@ class Node {
 public class BinaryInsertion {
 
 	public Node insertNode(int data, Node root) {
-		Node newNode = Node.newNode(data);
+		Node newNode = Node.newNode1(data);
 
 		if(root == null) {
 			root = newNode;
@@ -114,15 +121,21 @@ public class BinaryInsertion {
 	}
 
 	public void levelOrderTraversal(Node root) {
-		Node current = root;
+		int levelNodes = 0;
 		if(	root == null) return;
 		Queue<Node> queue = new LinkedList<Node>();
-		queue.add(current);
+		queue.add(root);
 		while(!queue.isEmpty()) {
-			current = queue.poll();
-			System.out.print(current.getData() + "->");
-			if(current.getLeft() != null) queue.add(current.getLeft());
-			if(current.getRight() != null) queue.add(current.getRight());
+			levelNodes = queue.size();
+			while(levelNodes > 0)
+			{
+				Node current = queue.remove();
+				System.out.print(" " + current.getData());
+				if(current.getLeft() != null) queue.add(current.getLeft());
+				if(current.getRight() != null) queue.add(current.getRight());
+				levelNodes--;
+			}
+			System.out.println(" ");
 		}
 	}
 
@@ -203,13 +216,12 @@ public class BinaryInsertion {
 
 		Node head = null;
 		head = tree.insertNode(5, head);
-		head = tree.insertNode(-1, head);
-		head = tree.insertNode(3, head);
-		head = tree.insertNode(-2, head);
-		head = tree.insertNode(4, head);
-		head = tree.insertNode(-6, head);
 		head = tree.insertNode(10, head);
-
+		head = tree.insertNode(15, head);
+		head = tree.insertNode(20, head);
+		head = tree.insertNode(25, head);
+		head = tree.insertNode(30, head);
+		head = tree.insertNode(35, head);
 		System.out.println("Level Order Traversal of the Tree is: "); tree.levelOrderTraversal(head);
 		System.out.println();
 		System.out.println("Iterative Post Order Traversal of the Tree is: "); tree.itertaivePostOrderTraversal(head);
