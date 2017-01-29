@@ -145,32 +145,97 @@ public class Beginner {
 		root.right.right = new BinaryTreeNode(7);
 		
 		Beginner be = new Beginner();
-		be.preOrderTraversal(root);
-		System.out.println();
-		be.inOrderTraversal(root);
-		System.out.println();
+		be.serilaize(root);
 		
-		boolean result = be.searchTreeRecursion(root, 3);
-		System.out.println("Does 3 exit in the tree:" + result);
+//		be.preOrderTraversal(root);
+//		System.out.println();
+//		be.inOrderTraversal(root);
+//		System.out.println();
+//		
+//		boolean result = be.searchTreeRecursion(root, 3);
+//		System.out.println("Does 3 exit in the tree:" + result);
+//		
+//		result = be.searchTreeIteration(root, 3);
+//		System.out.println("Does 3 exit in the tree:" + result);
+//		
+//		be.DFS(root);
+//		System.out.println();
+//		
+//		int[] A = { 1, 2, 10, 20, 40, 32, 44, 51, 6 };
+//		be.findKthElement(A, 4);
+//		
+//		be.secondLargestElement(A);
+//		System.out.println();
+//		
+//		ArrayList<String> al = new ArrayList<String>();
+//		al.add("Daenerys Targaryen");
+//		al.add("Jon Show");
+//		al.add("Tyrion Lannister");
+//		al.add("Joffrey Baratheon");
+//		be.sortLast(al);
 		
-		result = be.searchTreeIteration(root, 3);
-		System.out.println("Does 3 exit in the tree:" + result);
 		
-		be.DFS(root);
-		System.out.println();
+	}
+	
+	public String serilaize(BinaryTreeNode root) {
+		if(root == null) {
+			return "";
+		}
 		
-		int[] A = { 1, 2, 10, 20, 40, 32, 44, 51, 6 };
-		be.findKthElement(A, 4);
+		LinkedList<BinaryTreeNode> q = new LinkedList<BinaryTreeNode>();
+		StringBuilder sb = new StringBuilder();
 		
-		be.secondLargestElement(A);
-		System.out.println();
+		q.add(root);
+		while(!q.isEmpty()) {
+			BinaryTreeNode node = q.remove();
+			if(node != null) {
+				sb.append(node.data + ",");
+				q.add(node.left);
+				q.add(node.right);
+			} else {
+				sb.append("#,");
+			}
+		}
+		sb.deleteCharAt(sb.length()-1);
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
+	
+	public BinaryTreeNode deSerialize(String str) {
+		if(str == null || str.length() == 0) {
+			return null;
+		}
 		
-		ArrayList<String> al = new ArrayList<String>();
-		al.add("Daenerys Targaryen");
-		al.add("Jon Show");
-		al.add("Tyrion Lannister");
-		al.add("Joffrey Baratheon");
-		be.sortLast(al);
+		String arr[] = str.split(",");
+		BinaryTreeNode root = new BinaryTreeNode(Integer.parseInt(arr[0]));
+		
+		LinkedList<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+		queue.add(root);
+		int i = 1;
+		while(!queue.isEmpty()) {
+			BinaryTreeNode node = queue.poll();
+			if(node == null)
+				continue;
+			
+			if(!arr[i].equals("#")){
+				node.left = new BinaryTreeNode(Integer.parseInt(arr[i]));
+				queue.offer(node.left);
+			} else {
+				node.left = null;
+				queue.offer(node.left);
+			}
+			i++;
+			
+			if(!arr[i].equals("#")){
+				node.right = new BinaryTreeNode(Integer.parseInt(arr[i]));
+				queue.offer(node.right);
+			} else {
+				node.right = null;
+				queue.offer(node.right);
+			}
+			i++;
+		}
+		return root;
 	}
 }
 

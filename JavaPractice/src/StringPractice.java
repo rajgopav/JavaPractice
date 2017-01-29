@@ -4,30 +4,33 @@ public class StringPractice{
 	public static void main(java.lang.String[] args) {
 		StringPracticeImplementation sp = new StringPracticeImplementation();
 
-		char[] charArr = "  Hi there, how  are you   doing? ".toCharArray();
-		sp.removeStringWhiteSpace(charArr);
-
-		String str = "((BCD)AE)";
-		System.out.println("isValid: " + sp.isValid(str));
-		str = ")(PH)N(X)";
-		System.out.println("isValid: " + sp.isValid(str));
-
-		String str1 = "hellolle";
-		System.out.println("Number of Palindromes is: " + sp.countPalindrome(str1));
-
-		sp.generateParenthesis(3);
-		System.out.println();
-
-		String strA = "AABCDEBAZ";
-		int x = sp.longestPalindromicSubsequence(strA);
-		System.out.println("Length of Longest Palindrome in '" + strA + "' is - " + x);
-
-		String str11 = "AAABABAA";
-		String str12 = "AABA";         
-		System.out.println();
-		sp.findSubstring(str12.toCharArray(),str11.toCharArray());
+//		char[] charArr = "  Hi there, how  are you   doing? ".toCharArray();
+//		sp.removeStringWhiteSpace(charArr);
+//
+//		String str = "((BCD)AE)";
+//		System.out.println("isValid: " + sp.isValid(str));
+//		str = ")(PH)N(X)";
+//		System.out.println("isValid: " + sp.isValid(str));
+//
+//		String str1 = "hellolle";
+//		System.out.println("Number of Palindromes is: " + sp.countPalindrome(str1));
+//
+//		sp.generateParenthesis(3);
+//		System.out.println();
+//
+//		String strA = "AABCDEBAZ";
+//		int x = sp.longestPalindromicSubsequence(strA);
+//		System.out.println("Length of Longest Palindrome in '" + strA + "' is - " + x);
+//
+//		String str11 = "AAABABAA";
+//		String str12 = "AABA";         
+//		System.out.println();
+//		sp.findSubstring(str12.toCharArray(),str11.toCharArray());
 		
 		//sp.searchAnagramSubstring(str11, str12);
+		String palindrome = "forgeeksskeegfor";
+		String result = sp.longestPalindrome(palindrome);
+		System.out.println(result);
 	}
 }
 
@@ -205,6 +208,52 @@ class StringPracticeImplementation {
 		} while(++i < n);
 
 		System.out.println(count);
+	}
+	
+	public String longestPalindrome(String str) {
+		if(str.isEmpty()) {
+			return null;
+		} else if(str.length() == 1) {
+			return str;
+		}
+		
+		String longest = str.substring(0, 1);
+		for(int i = 0; i < str.length(); i++) {
+			String temp = helper(str, i, i);
+			if(temp.length() > longest.length())
+				longest = temp;
+			
+			temp = helper(str, i , i+1);
+			if(temp.length() > longest.length())
+				longest = temp;
+		}
+		return longest;
+	}
+	
+	private String helper(String str, int start, int end ) {
+		while(start >= 0 && end <= str.length() - 1 && str.charAt(start) == str.charAt(end)) {
+			start--;
+			end++;
+		}
+		return str.substring(start + 1, end);
+	}
+	
+	public boolean wordBreak(String str, Set<String> dict) {
+		int pos[] = new int[str.length()+1];
+		
+		Arrays.fill(pos, -1);
+		pos[0] = 0;
+		
+		for(int i = 0; i< str.length(); i++) {
+			if(pos[i]  != -1) {
+				for(int j = i + 1; j < str.length(); j++) {
+					String temp = str.substring(i, j);
+					if(dict.contains(temp)) 
+						pos[j] = i;
+				}
+			}
+		}
+		return pos[str.length()] != -1;
 	}
 }
 

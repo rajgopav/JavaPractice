@@ -303,6 +303,25 @@ public class ArrayPractice {
 			col++;
 		}
 	}
+	
+	public boolean canJump(int arr[]) {
+		if(arr.length <= 1)
+			return true;
+		
+		int max = arr[0];
+		for(int i = 0; i < arr.length; i++) {
+			if(max <= i && arr[i] == 0)
+				return false;
+			
+			if(i + arr[i] > max)
+				max = i + arr[i];
+			
+			if(max >= arr.length - 1)
+				return true;
+		}
+		
+		return false;
+	}
 
 	public static void main(String[] args) {
 
@@ -356,6 +375,10 @@ public class ArrayPractice {
 				{ 1, 1, 1, 1, 1, 1 } };
 
 		ap.subMatrix(arrA1, 5, 6);
+		
+		int arrJmp[] = {2,3,1,1,4};
+		boolean bool = ap.canJump(arrJmp);
+		System.out.println(bool);
 
 	}
 }
